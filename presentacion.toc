@@ -1,0 +1,5 @@
+\beamer@sectionintoc {1}{Introducci\IeC {\'o}n}{3}{0}{1}
+\beamer@sectionintoc {2}{Estado de la t\IeC {\'e}cnica}{10}{0}{2}
+\beamer@sectionintoc {3}{Implementaci\IeC {\'o}n}{15}{0}{3}
+\beamer@sectionintoc {4}{Resultados}{22}{0}{4}
+\beamer@sectionintoc {5}{Conclusiones}{26}{0}{5}

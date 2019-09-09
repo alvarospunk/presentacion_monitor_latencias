@@ -1,0 +1,395 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\AtBeginSection[]{
+	\begin{frame}
+	\vfill
+	\centering
+	\begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+		\usebeamerfont{title}\insertsectionhead\par%
+	\end{beamercolorbox}
+	\vfill
+\end{frame}
+}
+
+\title[Redes de visibilidad]{Sistemas de monitorización de latencias en redes de visibilidad} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{J. Álvaro Garrido López} % Your name
+\institute[UGR] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Universidad de Granada \\ % Your institution for the title page
+\medskip
+Tutores: Javier Díaz y Miguel Jiménez\\
+\medskip
+Trabajo de Fin de Grado\\
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Índice} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+%\section{First Section} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+%------------------------------------------------
+
+%\subsection{Subsection Example} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+
+%------------------------------------------------
+\section{Introducción}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Redes de visibilidad y aplicaciones}
+\begin{block}{¿Qué son las redes de visibilidad?}
+	Son la infraestructura en una red que permite la monitorización de la misma, con el fin de conocer el estado sobre su rendimiento y de detectar posibles fallos de seguridad.
+\end{block}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{garland3.jpeg}
+	\label{garland2}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Redes de visibilidad y aplicaciones}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.1]{visibility.jpg}
+	\label{visibility}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivación y contexto}
+\begin{block}{Contexto}
+\begin{itemize}
+	\item Volúmenes ingentes de datos
+	\item Preocupación por la seguridad
+	\item Servicios de altas prestaciones (telecom y finance)
+	\item Necesidad de controlar constante y eficientemente el tráfico
+	\item Auge del \textit{Big Data}
+\end{itemize}
+\end{block}
+
+\begin{itemize}
+	\item Ingredientes perfectos para que se requiera de una recopilación, distribución y entrega de datos eficaz y escalable.
+	\item De este punto parte la \textbf{visibilidad en redes}.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Objetivos (I)}
+
+\begin{itemize}
+	\item Estado de la técnica sobre captura eficiente
+	\item Aplicaciones comerciales y libres para visibilidad
+	\item Análisis sobre las características de las tecnologías encontradas
+	\item Evaluación del funcionamiento lógico de tecnologías
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Objetivos (II)}
+\begin{itemize}
+	\item Diseño y desarrollo del sistema. Favorecer escalabilidad y flexibilidad
+	\item Integración de los componentes \textit{hardware} y \textit{software}
+	\item Integración de un sistema de alerting
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Material y métodos}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.35]{material.png}
+	\label{material}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Estado de la técnica}
+%------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Métodos para implementar visibilidad (I)}
+\begin{itemize}
+	\item Mediante peticiones \textbf{SNMP}
+	\item A través de \textbf{gestión directa} del tráfico (e.g. mediante \textbf{TAP})
+	\item Gestión del tráfico \textbf{por flujos} (e.g. \textbf{sflow})
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Métodos para implementar visibilidad (II)}
+La figura que hablamos con snmp, flow o extracción directa de tráfico + dispositivos hw de captura/análisis 1 slide
+\end{frame}
+
+\begin{frame}
+
+\frametitle{\textit{Hardware} específico para visibilidad (I)}
+
+\begin{itemize}
+	\item Divisores ópticos
+	\item SPAN
+	\item TAP
+	\item Agregadores
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{\textit{Hardware} específico para visibilidad (II)}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{hardware.png}
+	\label{hardware}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Implementación}
+%------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Pruebas preliminares}
+
+
+
+\begin{table}
+\begin{tabular}{l l l}
+\toprule
+\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
+\midrule
+Treatment 1 & 0.0003262 & 0.562 \\
+Treatment 2 & 0.0015681 & 0.910 \\
+Treatment 3 & 0.0009271 & 0.296 \\
+\bottomrule
+\end{tabular}
+\caption{Table caption}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Captura de paquetes}
+
+\begin{itemize}
+	\item \textbf{libpcap}
+	\item \textbf{pf\_ring ZC}. Búffer circular con \textbf{DMA}.
+	\item \textbf{NetSniff}
+\end{itemize}
+- Captura de paquetes con .... 1 slide (para esta y las siguientes, discute las alternativas, indica las pruebas más relevantes y acaba con la solución final)
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+\frametitle{Filtrado}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Almacenamiento}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Visibilidad}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Setup final}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Resultados}
+%------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Resultados}
+ fitrados, visualizacioń de latencias, setups utilizados, etc..
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Resultados}
+fitrados, visualizacioń de latencias, setups utilizados, etc..
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Resultados}
+fitrados, visualizacioń de latencias, setups utilizados, etc..
+
+\end{frame}
+
+%------------------------------------------------
+\section{Conclusiones}
+%------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Conclusiones}
+fitrados, visualizacioń de latencias, setups utilizados, etc..
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Trabajo futuro}
+fitrados, visualizacioń de latencias, setups utilizados, etc..
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Referencias}
+\footnotesize{
+\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+\bibitem[Smith, 2012]{p1} John Smith (2012)
+\newblock Title of the publication
+\newblock \emph{Journal Name} 12(3), 45 -- 678.
+\end{thebibliography}
+}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
