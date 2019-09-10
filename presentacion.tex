@@ -95,6 +95,8 @@
 \end{frame}
 }
 
+\definecolor{purple}{RGB}{127,0,255}
+
 \title[Redes de visibilidad]{Sistemas de monitorización de latencias en redes de visibilidad} % The short title appears at the bottom of every slide, the full title is only on the title page
 
 \author{J. Álvaro Garrido López} % Your name
@@ -210,7 +212,7 @@ Trabajo de Fin de Grado\\
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.35]{material.png}
+	\includegraphics[scale=0.30]{material.png}
 	\label{material}
 \end{figure}
 
@@ -243,10 +245,10 @@ La figura que hablamos con snmp, flow o extracción directa de tráfico + dispos
 \frametitle{\textit{Hardware} específico para visibilidad (I)}
 
 \begin{itemize}
-	\item Divisores ópticos
-	\item SPAN
-	\item TAP
-	\item Agregadores
+	\item \textbf{Divisores ópticos}. Dividen el haz de luz en varios caminos. No consumen electricidad
+	\item \textbf{SPAN}. Puerto en un \textit{switch} a donde se replica el tráfico. Existe pérdida de paquetes
+	\item \textbf{\color{purple}{TAP}}. Replican el tráfico asegurando 0 pérdida de paquetes
+	\item \textbf{Agregadores}. Agregan el flujo de tráfico de diferentes puertos en uno escogido
 \end{itemize}
 
 \end{frame}
@@ -269,22 +271,28 @@ La figura que hablamos con snmp, flow o extracción directa de tráfico + dispos
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Pruebas preliminares}
+\frametitle{Pruebas preliminares (I)}
 
+\textbf{Gestión del tráfico basado en flujos}
 
+\begin{block}{¿Qué es un flujo?}
+	Es una secuencia de paquetes que comparten las mismas propiedades que son enviados entre un \textit{host} emisor y un receptor. Por ejemplo, en una emisión de \textit{streaming}, los paquetes son enviados por el servidor forman parte del mismo flujo. 
+\end{block}
 
-\begin{table}
-\begin{tabular}{l l l}
-\toprule
-\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
-\midrule
-Treatment 1 & 0.0003262 & 0.562 \\
-Treatment 2 & 0.0015681 & 0.910 \\
-Treatment 3 & 0.0009271 & 0.296 \\
-\bottomrule
-\end{tabular}
-\caption{Table caption}
-\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Pruebas preliminares (II)}
+
+\textbf{Tecnologías existentes}
+
+\begin{itemize}
+	\item \textbf{NetFlow}. Propietaria de \textbf{CISCO}. Necesario exportar flujos cada cierto tiempo
+	\item \textbf{\color{purple}{sflow}}. Tecnología compatible con múltiples fabricantes. Datagramas enviados en tiempo real. Más recomendado para visibilidad
+\end{itemize}
+
+A pesar de escoger \textbf{sflow} por su mayor compatibilidad, y comprobar sus virtudes, nos interesa la opción más escalable y versátil. Por tanto, descartamos trabajar con gestión del tráfico por flujos.
+
 \end{frame}
 
 %------------------------------------------------
@@ -293,11 +301,12 @@ Treatment 3 & 0.0009271 & 0.296 \\
 \frametitle{Captura de paquetes}
 
 \begin{itemize}
-	\item \textbf{libpcap}
-	\item \textbf{pf\_ring ZC}. Búffer circular con \textbf{DMA}.
-	\item \textbf{NetSniff}
+	\item \textbf{libpcap}. Biblioteca por defecto en Linux. Búffer lineal. Tamaño reducido
+	\item \textbf{\color{purple}{pf\_ring ZC}}. Búffer circular con \textbf{DMA}
+	\item \textbf{Sniffer 10G}. Tecnología propietaria 10G. Depende de \textit{hardware} específico del fabricante.
 \end{itemize}
-- Captura de paquetes con .... 1 slide (para esta y las siguientes, discute las alternativas, indica las pruebas más relevantes y acaba con la solución final)
+
+Escogemos \textbf{pf\_ring} por ser mayoritariamente de código abierto, versátil, y no depender de \textit{hardware} específico.
 
 \end{frame}
 
@@ -365,7 +374,15 @@ fitrados, visualizacioń de latencias, setups utilizados, etc..
 
 \begin{frame}
 \frametitle{Conclusiones}
-fitrados, visualizacioń de latencias, setups utilizados, etc..
+Hemos construido una herramienta que:
+
+\begin{itemize}
+	\item Integra soluciones a diferentes niveles para construir una herramienta para medir latencias y otras estadísticas
+	\item Es posible sustituir componentes de la misma para satisfacer necesidades más específicas, por la \textbf{alta escalabilidad} y \textbf{flexibilidad} del sistema
+	\item Permite implementar visibilidad en una red
+	\item Permite mucho trabajo futuro
+	\item Ya tiene asignada una futura \textbf{aplicación} en el mercado (Seven)
+\end{itemize}
 
 \end{frame}
 
@@ -373,7 +390,11 @@ fitrados, visualizacioń de latencias, setups utilizados, etc..
 
 \begin{frame}
 \frametitle{Trabajo futuro}
-fitrados, visualizacioń de latencias, setups utilizados, etc..
+\begin{itemize}
+	\item Apoyo \textit{hardware} para filtrado (FPGA)
+	\item Creación de campos para medición de latencias con mayor precisión
+	\item 
+\end{itemize}
 
 \end{frame}
 
