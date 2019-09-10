@@ -237,7 +237,24 @@ Trabajo de Fin de Grado\\
 
 \begin{frame}
 \frametitle{Métodos para implementar visibilidad (II)}
-La figura que hablamos con snmp, flow o extracción directa de tráfico + dispositivos hw de captura/análisis 1 slide
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.35]{directo.png}
+	\label{directo}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Métodos para implementar visibilidad (III)}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{sflow.png}
+	\label{sflow}
+\end{figure}
+
 \end{frame}
 
 \begin{frame}
@@ -315,12 +332,28 @@ Escogemos \textbf{pf\_ring} por ser mayoritariamente de código abierto, versát
 \begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
 \frametitle{Filtrado}
 
+\begin{itemize}
+	\item \textbf{Hardware}. Existen \textbf{NIC} que ofrecen la posibilidad de aplicar reglas de filtrado \textit{hw}
+	\item \textbf{Bloque IP en FPGA}. También existe la posibilidad de implementar un bloque IP en una FPGA para el filtrado
+	\item \textbf{\color{purple}{Software}}. \textbf{BPF} es una biblioteca que permite el filtrado \textit{software} haciendo uso de cualquier herramienta de captura que hayamos escogido anteriormente
+\end{itemize}
+
+No escogemos la opción \textit{hardware} por la limitación de compatibilidad, tampoco la opción de implementar un bloque IP por la complejidad de la solución.\\
+Entonces, la más escalable es la opción \textit{software}
+
 \end{frame}
 
 %------------------------------------------------
 
 \begin{frame}
 \frametitle{Almacenamiento}
+
+\begin{itemize}
+	\item \textbf{InfluxDB}. Base de datos rendimiento \textit{real-time}. Escalabilidad buena
+	\item \textbf{elasticsearch}. Base de datos rendimiento \textit{near real-time}. Alta flexibilidad del \textit{input} y \textit{output} de datos haciendo uso del \textit{stack ELK}
+\end{itemize}
+
+Escogemos \textit{elasticsearch} por su flexibilidad y escalabilidad apoyándose en el \textit{stack ELK}
 
 \end{frame}
 
@@ -329,12 +362,26 @@ Escogemos \textbf{pf\_ring} por ser mayoritariamente de código abierto, versát
 \begin{frame}
 \frametitle{Visibilidad}
 
+\begin{itemize}
+	\item \textbf{Grafana}. Escalabilidad buena. Diferentes opciones para visualizar parámetros
+	\item \textbf{\color{purple}{Kibana}}. Gran escalabilidad. Compatibilidad con \textit{JSON}. Apoyo en \textit{stack ELK}. Tratamiento previo de los datos con \textit{Logstash}
+	\item \textbf{Graphite}. Buena compatibilidad y escalabilidad
+\end{itemize}
+
+Nos quedamos con \textbf{Kibana} por haber demostrado ser la opción más escalable por su compatibilidad y flexibilidad con \textit{JSON}, por las etapas previas y tratamiento de datos con \textit{Logstash}, y por la multitud de opciones para visualización que ofrece
+
 \end{frame}
 
 %------------------------------------------------
 
 \begin{frame}
 \frametitle{Setup final}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.2]{sistema-final.png}
+	\label{sistema-final}
+\end{figure}
 
 \end{frame}
 
@@ -345,24 +392,50 @@ Escogemos \textbf{pf\_ring} por ser mayoritariamente de código abierto, versát
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Resultados}
- fitrados, visualizacioń de latencias, setups utilizados, etc..
+\frametitle{Visualización de estadísticas (I)}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{timelion-avg.png}
+	\label{timelionavg}
+\end{figure}
 
 \end{frame}
 
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Resultados}
-fitrados, visualizacioń de latencias, setups utilizados, etc..
+\frametitle{Visualización de estadísticas (II)}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{timelion-all-stats.png}
+	\label{timelion}
+\end{figure}
 
 \end{frame}
 
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Resultados}
-fitrados, visualizacioń de latencias, setups utilizados, etc..
+\frametitle{Comparativa captura de paquetes (I)}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{captura-libpcap-original.png}
+	\label{libpcap}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Comparativa captura de paquetes (II)}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{captura-libpcap-aware-pfring.png}
+	\label{pfring}
+\end{figure}
 
 \end{frame}
 
@@ -379,6 +452,7 @@ Hemos construido una herramienta que:
 \begin{itemize}
 	\item Integra soluciones a diferentes niveles para construir una herramienta para medir latencias y otras estadísticas
 	\item Es posible sustituir componentes de la misma para satisfacer necesidades más específicas, por la \textbf{alta escalabilidad} y \textbf{flexibilidad} del sistema
+	\item Mejora de hasta un 30\% en la etapa de captura de paquetes (pf\_ring) sobre \textit{libpcap})
 	\item Permite implementar visibilidad en una red
 	\item Permite mucho trabajo futuro
 	\item Ya tiene asignada una futura \textbf{aplicación} en el mercado (Seven)
@@ -393,7 +467,7 @@ Hemos construido una herramienta que:
 \begin{itemize}
 	\item Apoyo \textit{hardware} para filtrado (FPGA)
 	\item Creación de campos para medición de latencias con mayor precisión
-	\item 
+	\item Data Analytics / Big Data
 \end{itemize}
 
 \end{frame}
@@ -404,9 +478,9 @@ Hemos construido una herramienta que:
 \frametitle{Referencias}
 \footnotesize{
 \begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
-\bibitem[Smith, 2012]{p1} John Smith (2012)
-\newblock Title of the publication
-\newblock \emph{Journal Name} 12(3), 45 -- 678.
+%\bibitem[Smith, 2012]{p1} John Smith (2012)
+%\newblock Title of the publication
+%\newblock \emph{Journal Name} 12(3), 45 -- 678.
 \end{thebibliography}
 }
 \end{frame}

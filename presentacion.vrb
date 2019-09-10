@@ -1,2 +1,11 @@
 \frametitle{Filtrado}
 
+\begin{itemize}
+	\item \textbf{Hardware}. Existen \textbf{NIC} que ofrecen la posibilidad de aplicar reglas de filtrado \textit{hw}
+	\item \textbf{Bloque IP en FPGA}. También existe la posibilidad de implementar un bloque IP en una FPGA para el filtrado
+	\item \textbf{\color{purple}{Software}}. \textbf{BPF} es una biblioteca que permite el filtrado \textit{software} haciendo uso de cualquier herramienta de captura que hayamos escogido anteriormente
+\end{itemize}
+
+No escogemos la opción \textit{hardware} por la limitación de compatibilidad, tampoco la opción de implementar un bloque IP por la complejidad de la solución.\\
+Entonces, la más escalable es la opción \textit{software}
+
